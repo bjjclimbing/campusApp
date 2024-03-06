@@ -10,10 +10,14 @@ public final class UtilsTest {
 
   @Test
   public void testSetUnion() {
-    final var set1 = Set.of(1, 2, 3);
-    assertEquals(set1, union(set1, Set.of()));
-    assertEquals(set1, union(Set.of(), set1));
-    assertEquals(Set.of(1, 2, 3, 4), union(set1, Set.of(4)));
+    // Arrange
+    final var set1 = Set.of(1, 3, 5);
+    final var set2 = Set.of(3, 4, 6);
+    // Act
+    final var result = union(set1, set2);
+    // Assert
+    final var expected = Set.of(1,3,4,5,6);
+    assertEquals(expected, result);
   }
 
 }
