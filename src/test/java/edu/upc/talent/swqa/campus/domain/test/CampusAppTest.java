@@ -6,14 +6,15 @@ import edu.upc.talent.swqa.campus.infrastructure.PostgresQlUsersRepository;
 import edu.upc.talent.swqa.campus.infrastructure.UsersDb;
 import edu.upc.talent.swqa.jdbc.Database;
 import static edu.upc.talent.swqa.jdbc.HikariCP.getDataSource;
+import edu.upc.talent.swqa.jdbc.test.utils.DatabaseBackedTest;
 import static edu.upc.talent.swqa.test.utils.Asserts.assertEquals;
 import org.junit.jupiter.api.Test;
+import org.testcontainers.shaded.org.bouncycastle.asn1.dvcs.Data;
 
 import java.util.Set;
 
-public class CampusAppTest {
+public class CampusAppTest extends DatabaseBackedTest {
 
-  final Database db = new Database(getDataSource("jdbc:postgresql:///", "postgres", "postgres"));
   final InMemoryEmailService emailService = new InMemoryEmailService();
   final UsersRepository usersRepository = new PostgresQlUsersRepository(db);
   final CampusApp app = new CampusApp(usersRepository, emailService);

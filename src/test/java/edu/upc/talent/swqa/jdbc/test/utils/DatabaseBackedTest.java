@@ -4,35 +4,45 @@ import edu.upc.talent.swqa.jdbc.Database;
 import static edu.upc.talent.swqa.jdbc.HikariCP.getDataSource;
 import static edu.upc.talent.swqa.jdbc.test.utils.ConsoleUtils.printAlignedTable;
 import static edu.upc.talent.swqa.util.Utils.join;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.testcontainers.containers.PostgreSQLContainer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class DatabaseBackedTest {
 
-  protected Database db;
+  static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(
+        "postgres:15-alpine"
+  );
 
-  @BeforeEach
-  public final void setUpDatabase() {
-    final var databaseName = this.getClass().getSimpleName().toLowerCase();
-    try (final var db = new Database(getDataSource("jdbc:postgresql:///", "postgres", "postgres"))) {
-      db.withConnection((conn) -> {
-        conn.update("DROP DATABASE IF EXISTS " + databaseName);
-        conn.update("CREATE DATABASE " + databaseName);
-      });
-    } catch (final Exception e) {
-      throw new RuntimeException(e);
-    }
+  protected static Database db;
 
-    this.db = new Database(getDataSource("jdbc:postgresql:///" + databaseName, "postgres", "postgres"));
+
+  @BeforeAll
+  static void beforeAll() {
+    postgres.start();
+    db = new Database(getDataSource(postgres.getJdbcUrl(), postgres.getUsername(), postgres.getPassword()));
+
   }
 
+  @AfterAll
+  static void afterAll() {
+    try {
+      db.close();
+    } catch (final Exception e) {
+      e.printStackTrace();
+    }
+    postgres.stop();
+  }
+
+
   @AfterEach
-  public final void afterEach() throws Exception {
+  public final void afterEach() {
     printDbContents();
-    if (this.db != null) this.db.close();
   }
 
 
@@ -58,7 +68,7 @@ public abstract class DatabaseBackedTest {
       }
       return row;
     });
-    System.out.println(("-- " + tableName + " " + "-".repeat(75)).substring(0,80) + "\n");
+    System.out.println(("-- " + tableName + " " + "-".repeat(75)).substring(0, 80) + "\n");
     printAlignedTable(join(List.of(columns), rows));
     System.out.println();
   }

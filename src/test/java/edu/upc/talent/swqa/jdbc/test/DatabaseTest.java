@@ -16,7 +16,8 @@ public final class DatabaseTest extends DatabaseBackedTest {
 
   @BeforeEach
   public void setUpDatabaseSchema() {
-    db.update("CREATE TABLE users(id SERIAL PRIMARY KEY, name TEXT, email TEXT)");
+    db.update("CREATE TABLE IF NOT EXISTS users(id SERIAL PRIMARY KEY, name TEXT, email TEXT)");
+    db.update("TRUNCATE TABLE users");
   }
 
   private final RowReader<String> readNameAndEmail = (rs) -> rs.getString(1) + " <" + rs.getString(2) + ">";
