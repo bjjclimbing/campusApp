@@ -4,7 +4,7 @@ import edu.upc.talent.swqa.campus.domain.CampusApp;
 import edu.upc.talent.swqa.campus.domain.UsersRepository;
 import edu.upc.talent.swqa.campus.domain.test.InMemoryEmailService;
 import edu.upc.talent.swqa.campus.test.utils.SentEmail;
-import edu.upc.talent.swqa.campus.infrastructure.PostgresQlUsersRepository;
+import edu.upc.talent.swqa.campus.infrastructure.PostgreSqlUsersRepository;
 import edu.upc.talent.swqa.campus.infrastructure.UsersDb;
 import edu.upc.talent.swqa.jdbc.test.utils.DatabaseBackedTest;
 import static edu.upc.talent.swqa.test.utils.Asserts.assertEquals;
@@ -16,7 +16,7 @@ import java.util.Set;
 public class CampusAppClassicEndtoEndTest extends DatabaseBackedTest {
 
   final InMemoryEmailService emailService = new InMemoryEmailService(new HashSet<>());
-  final UsersRepository usersRepository = new PostgresQlUsersRepository(db);
+  final UsersRepository usersRepository = new PostgreSqlUsersRepository(db);
   final CampusApp app = new CampusApp(usersRepository, emailService);
 
   @Test

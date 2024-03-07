@@ -8,11 +8,11 @@ import static edu.upc.talent.swqa.jdbc.Param.p;
 
 import java.util.List;
 
-public class PostgresQlUsersRepository implements UsersRepository {
+public class PostgreSqlUsersRepository implements UsersRepository {
 
   private final Database db;
 
-  public PostgresQlUsersRepository(final Database db) {
+  public PostgreSqlUsersRepository(final Database db) {
     this.db = db;
   }
 

@@ -1,6 +1,6 @@
 package edu.upc.talent.swqa.campus.domain;
 
-import edu.upc.talent.swqa.campus.infrastructure.PostgresQlUsersRepository;
+import edu.upc.talent.swqa.campus.infrastructure.PostgreSqlUsersRepository;
 import edu.upc.talent.swqa.campus.infrastructure.SmtpEmailService;
 import edu.upc.talent.swqa.jdbc.Database;
 import static edu.upc.talent.swqa.jdbc.HikariCP.getDataSource;
@@ -55,7 +55,7 @@ public final class CampusApp {
     final var dbPassword = System.getenv("DATABASE_PASSWORD");
     final var db = new Database(getDataSource("jdbc:postgresql://" + dbHost + "/", dbUser, dbPassword));
     final var emailService = new SmtpEmailService();
-    final var usersRepository = new PostgresQlUsersRepository(db);
+    final var usersRepository = new PostgreSqlUsersRepository(db);
     return new CampusApp(usersRepository, emailService);
   }
 
