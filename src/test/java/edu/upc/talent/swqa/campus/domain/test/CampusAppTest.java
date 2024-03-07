@@ -61,4 +61,17 @@ public final class CampusAppTest {
     assertEquals(expectedFinalState, getFinalState());
   }
 
+  @Test
+  public void testSendEmailToGroupRole() {
+    final var app = getApp(defaultInitialState);
+    final var subject = "Hey! Teacher!";
+    final var body = "Let them students alone!!";
+    app.sendMailToGroupRole("swqa", "teacher", subject, body);
+    final var expectedFinalState = new CampusAppState(
+          defaultInitialState.usersRepositoryState(),
+          Set.of(new SentEmail("mariah.hairam@example.com", subject, body))
+    );
+    assertEquals(expectedFinalState, getFinalState());
+  }
+
 }
