@@ -2,20 +2,24 @@ package edu.upc.talent.swqa.campus.domain.test;
 
 import edu.upc.talent.swqa.campus.domain.EmailService;
 import edu.upc.talent.swqa.campus.domain.User;
+import edu.upc.talent.swqa.campus.test.utils.SentEmail;
 
-import java.util.HashSet;
 import java.util.Set;
 
 public class InMemoryEmailService implements EmailService {
 
-  private final Set<SentEmail> sentEmails = new HashSet<>();
+  private final Set<SentEmail> state;
 
-  @Override public void sendEmail(final User to, final String subject, final String body) {
-    sentEmails.add(new SentEmail(to.email(), subject, body));
+  public InMemoryEmailService(final Set<SentEmail> initialState) {
+    state = initialState;
   }
 
-  public Set<SentEmail> getSentEmails() {
-    return Set.copyOf(sentEmails);
+  @Override public void sendEmail(final User to, final String subject, final String body) {
+    state.add(new SentEmail(to.email(), subject, body));
+  }
+
+  public Set<SentEmail> getState() {
+    return Set.copyOf(state);
   }
 
 }
