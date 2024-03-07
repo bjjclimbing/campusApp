@@ -59,4 +59,9 @@ public final class CampusApp {
     return new CampusApp(usersRepository, emailService);
   }
 
+  public void sendMailToGroupRole(final String groupName, final String roleName, final String subject, final String body) {
+    final var users = usersRepository.getUsersByGroup(groupName);
+    users.stream().filter(u -> u.role().equals(roleName))
+          .forEach(u -> emailService.sendEmail(u, subject, body));
+  }
 }
