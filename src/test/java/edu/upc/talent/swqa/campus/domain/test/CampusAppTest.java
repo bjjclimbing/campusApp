@@ -4,12 +4,9 @@ import edu.upc.talent.swqa.campus.domain.CampusApp;
 import edu.upc.talent.swqa.campus.domain.UsersRepository;
 import edu.upc.talent.swqa.campus.infrastructure.PostgresQlUsersRepository;
 import edu.upc.talent.swqa.campus.infrastructure.UsersDb;
-import edu.upc.talent.swqa.jdbc.Database;
-import static edu.upc.talent.swqa.jdbc.HikariCP.getDataSource;
 import edu.upc.talent.swqa.jdbc.test.utils.DatabaseBackedTest;
 import static edu.upc.talent.swqa.test.utils.Asserts.assertEquals;
 import org.junit.jupiter.api.Test;
-import org.testcontainers.shaded.org.bouncycastle.asn1.dvcs.Data;
 
 import java.util.Set;
 
