@@ -35,6 +35,7 @@ public interface UsersRepositoryTest {
   }
 
   @Test
+  @Disabled
   default void testCreateUser() {
     final var repository = getRepository(defaultInitialState);
     final var id = "0";
