@@ -3,6 +3,9 @@ package edu.upc.talent.swqa.campus.infrastructure.test;
 import edu.upc.talent.swqa.campus.domain.User;
 import edu.upc.talent.swqa.campus.domain.UsersRepository;
 import edu.upc.talent.swqa.campus.test.utils.TestFixtures;
+import static edu.upc.talent.swqa.campus.test.utils.TestFixtures.janeDoe;
+import static edu.upc.talent.swqa.campus.test.utils.TestFixtures.johnDoe;
+import static edu.upc.talent.swqa.campus.test.utils.TestFixtures.mariahHairam;
 import edu.upc.talent.swqa.campus.test.utils.UsersRepositoryState;
 import static edu.upc.talent.swqa.test.utils.Asserts.assertEquals;
 import static edu.upc.talent.swqa.util.Utils.now;
@@ -12,6 +15,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
+import java.util.Set;
 
 public interface UsersRepositoryTest {
 
@@ -30,7 +34,7 @@ public interface UsersRepositoryTest {
   default void testGetUsersByGroup() {
     final var repository = getRepository(defaultInitialState);
     final var actual = repository.getUsersByGroup("swqa");
-    assertEquals(defaultInitialState.users(), new HashSet<>(actual));
+    assertEquals(Set.of(johnDoe, janeDoe, mariahHairam), new HashSet<>(actual));
     assertExpectedFinalState(defaultInitialState);
   }
 

@@ -7,6 +7,7 @@ import static edu.upc.talent.swqa.campus.test.utils.TestFixtures.defaultInitialS
 import static edu.upc.talent.swqa.campus.test.utils.TestFixtures.janeDoe;
 import static edu.upc.talent.swqa.campus.test.utils.TestFixtures.johnDoe;
 import static edu.upc.talent.swqa.campus.test.utils.TestFixtures.mariahHairam;
+import static edu.upc.talent.swqa.campus.test.utils.TestFixtures.swqa;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.mockito.ArgumentMatchers.any;
@@ -15,6 +16,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
+
+import java.util.List;
 
 public final class CampusAppMockedTest {
 
@@ -27,10 +30,7 @@ public final class CampusAppMockedTest {
     usersRepository = mock(UsersRepository.class);
     emailService = mock(EmailService.class);
     app = new CampusApp(usersRepository, emailService);
-    when(usersRepository.getUsersByGroup("swqa")).thenReturn(defaultInitialState.usersRepositoryState()
-                                                                                .users()
-                                                                                .stream()
-                                                                                .toList());
+    when(usersRepository.getUsersByGroup(swqa.name())).thenReturn(List.of(johnDoe, janeDoe, mariahHairam));
   }
 
   @Test

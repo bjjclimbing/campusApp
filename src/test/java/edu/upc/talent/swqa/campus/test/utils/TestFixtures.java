@@ -12,6 +12,7 @@ public final class TestFixtures {
 
   public static final CampusAppState defaultInitialState;
   public static final Group swqa = new Group("1", "swqa");
+  public static final Group aiMl = new Group("2", "AI/ML");
 
   public static final User johnDoe = new User(
         "1",
@@ -19,7 +20,7 @@ public final class TestFixtures {
         "Doe",
         "john.doe@example.com",
         "student",
-        "swqa",
+        swqa.name(),
         now().minus(200, ChronoUnit.DAYS)
   );
 
@@ -29,7 +30,7 @@ public final class TestFixtures {
         "Doe",
         "jane.doe@example.com",
         "student",
-        "swqa",
+        swqa.name(),
         now().minus(100, ChronoUnit.DAYS)
   );
 
@@ -39,19 +40,24 @@ public final class TestFixtures {
         "Harris",
         "mariah.hairam@example.com",
         "teacher",
-        "swqa",
+        swqa.name(),
         now().minus(300, ChronoUnit.DAYS)
+  );
+  public static final User rohnNhor = new User(
+        "4",
+        "Rohn",
+        "Nhor",
+        "rohn.nhor@example.com",
+        "student",
+        aiMl.name(),
+        now().minus(150, ChronoUnit.DAYS)
   );
 
   static {
     defaultInitialState = new CampusAppState(
           new UsersRepositoryState(
-                Set.of(
-                      johnDoe,
-                      janeDoe,
-                      mariahHairam
-                ),
-                Set.of(swqa)
+                Set.of(johnDoe, janeDoe, mariahHairam, rohnNhor),
+                Set.of(swqa, aiMl)
           ),
           Set.of()
     );

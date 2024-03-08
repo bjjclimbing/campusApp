@@ -41,7 +41,7 @@ public final class CampusAppEndToEndTest extends DatabaseBackedTest {
   @Test
   public void testCreateGroup() {
     final var app = getApp(defaultInitialState);
-    final var group = new Group("2", "bigdata");
+    final var group = new Group("3", "bigdata");
     app.createGroup(group.id(), group.name());
     final var expectedState = new CampusAppState(
           new UsersRepositoryState(
