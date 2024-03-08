@@ -72,8 +72,8 @@ public sealed interface Diff {
 
     @Override
     public String toString(final boolean newLine, final int indent) {
-      final var sExpected = expected.toString();
-      final var sActual = actual.toString();
+      final var sExpected = Objects.toString(expected);
+      final var sActual = Objects.toString(actual);
       if (newLine || sExpected.length() + sActual.length() > 100) {
         final var spaces = " ".repeat(indent);
         return "\n" + spaces + "expected: " + sExpected + "\n" + spaces + "actual: " + sActual;

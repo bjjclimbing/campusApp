@@ -95,6 +95,7 @@ public final class Asserts {
         diffs.put(i, new Diff.AtomicDiff(null, itActual.next()));
         i++;
       }
+      if(diffs.isEmpty()) return new Diff.AtomicDiff(expected, actual);
       return new Diff.SequenceDiff(diffs);
     }
   }
