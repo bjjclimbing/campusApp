@@ -1,5 +1,7 @@
 package edu.upc.talent.swqa.util;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.Set;
 public final class Utils {
 
   private Utils() {}
+
   public static boolean eq(final Object o1, final Object o2) {
     return Objects.equals(o1, o2);
   }
@@ -36,6 +39,8 @@ public final class Utils {
     res.removeAll(elem);
     return res;
   }
+
+  public static Instant now() {return Instant.now().truncatedTo(ChronoUnit.SECONDS);}
 
 }
 

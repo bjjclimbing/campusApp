@@ -2,8 +2,9 @@ package edu.upc.talent.swqa.jdbc.test;
 
 import static edu.upc.talent.swqa.jdbc.Param.p;
 import edu.upc.talent.swqa.jdbc.RowReader;
-import static edu.upc.talent.swqa.test.utils.Asserts.assertEquals;
 import edu.upc.talent.swqa.jdbc.test.utils.DatabaseBackedTest;
+import static edu.upc.talent.swqa.test.utils.Asserts.assertEquals;
+import static edu.upc.talent.swqa.util.Utils.now;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -159,7 +160,7 @@ public final class DatabaseTest extends DatabaseBackedTest {
 
   @Test
   public void testInstantParameterAndResult() {
-    final var instant = java.time.Instant.now();
+    final var instant = now();
     assertEquals(instant, db.selectOne("select ?", (rs) -> rs.getInstant(1), p(instant)));
     assertEquals(null, db.selectOne("select ?", (rs) -> rs.getInstant(1), p((Instant) null)));
   }

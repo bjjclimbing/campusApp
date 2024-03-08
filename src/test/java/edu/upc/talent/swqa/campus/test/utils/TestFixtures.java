@@ -1,8 +1,8 @@
 package edu.upc.talent.swqa.campus.test.utils;
 
 import edu.upc.talent.swqa.campus.domain.User;
+import static edu.upc.talent.swqa.util.Utils.now;
 
-import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Set;
 
@@ -20,7 +20,7 @@ public final class TestFixtures {
         "john.doe@example.com",
         "student",
         "swqa",
-        Instant.now().minus(200, ChronoUnit.DAYS)
+        now().minus(200, ChronoUnit.DAYS)
   );
 
   public static final User janeDoe = new User(
@@ -30,7 +30,7 @@ public final class TestFixtures {
         "jane.doe@example.com",
         "student",
         "swqa",
-        Instant.now().minus(100, ChronoUnit.DAYS)
+        now().minus(100, ChronoUnit.DAYS)
   );
 
   public static final User mariahHairam = new User(
@@ -40,7 +40,7 @@ public final class TestFixtures {
         "mariah.hairam@example.com",
         "teacher",
         "swqa",
-        Instant.now().minus(300, ChronoUnit.DAYS)
+        now().minus(300, ChronoUnit.DAYS)
   );
 
   static {
