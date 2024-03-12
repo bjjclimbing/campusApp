@@ -52,4 +52,11 @@ public record InMemoryUsersRepository(UsersRepositoryState state) implements Use
                 ))
                 .toList();
   }
+
+  @Override
+  public List<User> getUserById(final String id) {
+    return state.users().stream()
+            .filter(user -> user.id().equals(id))
+            .toList();
+  }
 }
