@@ -2,11 +2,11 @@ package edu.upc.talent.swqa.campus.infrastructure.test;
 
 import edu.upc.talent.swqa.campus.domain.User;
 import edu.upc.talent.swqa.campus.domain.UsersRepository;
+import edu.upc.talent.swqa.campus.infrastructure.PostgreSqlUsersRepository;
 import edu.upc.talent.swqa.campus.test.utils.TestFixtures;
-import static edu.upc.talent.swqa.campus.test.utils.TestFixtures.janeDoe;
-import static edu.upc.talent.swqa.campus.test.utils.TestFixtures.johnDoe;
-import static edu.upc.talent.swqa.campus.test.utils.TestFixtures.mariahHairam;
 import edu.upc.talent.swqa.campus.test.utils.UsersRepositoryState;
+
+import static edu.upc.talent.swqa.campus.test.utils.TestFixtures.*;
 import static edu.upc.talent.swqa.test.utils.Asserts.assertEquals;
 import static edu.upc.talent.swqa.util.Utils.now;
 import static edu.upc.talent.swqa.util.Utils.plus;
@@ -14,7 +14,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.HashSet;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 public interface UsersRepositoryTest {
@@ -70,7 +72,18 @@ public interface UsersRepositoryTest {
     assertEquals("Group " + groupName + " does not exist", exception.getMessage());
     assertExpectedFinalState(defaultInitialState);
   }
+
+  @Test
+  default void testGetUserById() {
+    final var repository = getRepository(defaultInitialState);
+    final var id="2344";
+    final var exception = assertThrows(UserPrincipalNotFoundException.class, () ->
+            repository.getUserById(id)
+    );
+    assertEquals("User " + id + " does not exist", exception.getMessage());
+  }
 }
+
 
 
 

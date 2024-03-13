@@ -3,6 +3,9 @@ package edu.upc.talent.swqa.campus.domain;
 import edu.upc.talent.swqa.campus.infrastructure.PostgreSqlUsersRepository;
 import edu.upc.talent.swqa.campus.infrastructure.SmtpEmailService;
 import edu.upc.talent.swqa.jdbc.Database;
+
+import java.nio.file.attribute.UserPrincipalNotFoundException;
+
 import static edu.upc.talent.swqa.jdbc.HikariCP.getDataSource;
 
 public final class CampusApp {
@@ -65,10 +68,11 @@ public final class CampusApp {
           .forEach(u -> emailService.sendEmail(u, subject, body));
   }
 
-  public void sendMailToId(final String id, final String subject,final String body){
+  public void sendMailToTeacher(final String id, final String subject,final String body) throws UserPrincipalNotFoundException {
     final var users = usersRepository.getUserById(id);
 
     users.stream().filter(u -> u.id().equals(id))
             .forEach(u -> emailService.sendEmail(u, subject, body));
   }
+
 }
