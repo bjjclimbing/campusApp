@@ -92,12 +92,9 @@ public interface UsersRepositoryTest {
   default void testUserisTeacher() {
     final var repository = getRepository(defaultInitialState);
     final var id = "1";
-
-    // Se espera que se lance una excepción UserNotFoundException al intentar obtener el usuario por ID
     assertThrows(UserNotFoundException.class, () -> {
       List<User> users = repository.getUserById(id);
       for (User user : users) {
-        // Se espera que se lance una excepción UserNotFoundException al intentar determinar si el usuario es profesor
         repository.getIsaTeacher(user);
       }
     });

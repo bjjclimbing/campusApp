@@ -91,6 +91,20 @@ public final class CampusAppTest {
     assertEquals(expectedFinalState, getFinalState());
   }
 
+  @Test
+  public void testSendEmailByToTeacher() throws UserNotFoundException {
+    final var app = getApp(defaultInitialState);
+    final var subject = "Hey! Teacher!";
+    final var body = "Let them students alone!!";
+    final var id="1";
+    app.sendMailToTeacher(id,  subject, body);
+    final var expectedFinalState = new CampusAppState(
+            defaultInitialState.usersRepositoryState(),
+            Set.of(new SentEmail("john.doe@example.com", subject, body))
+    );
+    assertEquals(expectedFinalState, getFinalState());
+  }
+
 
 
 
