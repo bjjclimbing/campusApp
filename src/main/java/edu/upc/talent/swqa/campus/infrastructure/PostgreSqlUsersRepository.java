@@ -2,13 +2,13 @@ package edu.upc.talent.swqa.campus.infrastructure;
 
 import edu.upc.talent.swqa.campus.domain.BirthdayEmailData;
 import edu.upc.talent.swqa.campus.domain.User;
+import edu.upc.talent.swqa.campus.domain.UserNotFoundException;
 import edu.upc.talent.swqa.campus.domain.UsersRepository;
 import edu.upc.talent.swqa.jdbc.Database;
 import static edu.upc.talent.swqa.jdbc.Param.p;
 
 import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 public class PostgreSqlUsersRepository implements UsersRepository {
 
@@ -73,7 +73,7 @@ public class PostgreSqlUsersRepository implements UsersRepository {
   }
 
   @Override
-  public List<User> getUserById(final String id) throws  UserPrincipalNotFoundException {
+  public List<User> getUserById(final String id) throws UserNotFoundException {
 
     List<User> User = db.select(
             """
@@ -94,7 +94,7 @@ public class PostgreSqlUsersRepository implements UsersRepository {
     );
     if (User.isEmpty() ) {
       final String msg = "User "+id+" does not exist";
-      throw new UserPrincipalNotFoundException(msg);
+      throw new UserNotFoundException(msg);
     }
     return User;
 

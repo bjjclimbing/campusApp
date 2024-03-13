@@ -5,6 +5,7 @@ import edu.upc.talent.swqa.campus.infrastructure.SmtpEmailService;
 import edu.upc.talent.swqa.jdbc.Database;
 
 import java.nio.file.attribute.UserPrincipalNotFoundException;
+import java.util.List;
 
 import static edu.upc.talent.swqa.jdbc.HikariCP.getDataSource;
 
@@ -69,7 +70,12 @@ public final class CampusApp {
   }
 
   public void sendMailToTeacher(final String id, final String subject,final String body) throws UserPrincipalNotFoundException {
-    final var users = usersRepository.getUserById(id);
+    final List<User> users;
+    try {
+      users = usersRepository.getUserById(id);
+    } catch (UserNotFoundException e) {
+      throw new RuntimeException(e);
+    }
 
     users.stream().filter(u -> u.id().equals(id))
             .forEach(u -> emailService.sendEmail(u, subject, body));

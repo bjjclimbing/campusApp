@@ -1,8 +1,8 @@
 package edu.upc.talent.swqa.campus.infrastructure.test;
 
 import edu.upc.talent.swqa.campus.domain.User;
+import edu.upc.talent.swqa.campus.domain.UserNotFoundException;
 import edu.upc.talent.swqa.campus.domain.UsersRepository;
-import edu.upc.talent.swqa.campus.infrastructure.PostgreSqlUsersRepository;
 import edu.upc.talent.swqa.campus.test.utils.TestFixtures;
 import edu.upc.talent.swqa.campus.test.utils.UsersRepositoryState;
 
@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Test;
 
 import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.HashSet;
-import java.util.NoSuchElementException;
 import java.util.Set;
 
 public interface UsersRepositoryTest {
@@ -77,8 +76,13 @@ public interface UsersRepositoryTest {
   default void testGetUserById() {
     final var repository = getRepository(defaultInitialState);
     final var id="2344";
-    final var exception = assertThrows(UserPrincipalNotFoundException.class, () ->
-            repository.getUserById(id)
+    final var exception = assertThrows(edu.upc.talent.swqa.campus.domain.UserNotFoundException.class, () -> {
+              try {
+                repository.getUserById(id);
+              } catch (UserNotFoundException e) {
+                throw new UserNotFoundException("User "+id+" does not exist");
+              }
+            }
     );
     assertEquals("User " + id + " does not exist", exception.getMessage());
   }

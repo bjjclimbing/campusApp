@@ -2,6 +2,7 @@ package edu.upc.talent.swqa.campus.test.utils;
 
 import edu.upc.talent.swqa.campus.domain.BirthdayEmailData;
 import edu.upc.talent.swqa.campus.domain.User;
+import edu.upc.talent.swqa.campus.domain.UserNotFoundException;
 import edu.upc.talent.swqa.campus.domain.UsersRepository;
 import static edu.upc.talent.swqa.util.Utils.now;
 
@@ -54,7 +55,7 @@ public record InMemoryUsersRepository(UsersRepositoryState state) implements Use
   }
 
   @Override
-  public List<User> getUserById(final String id) {
+  public List<User> getUserById(final String id) throws UserNotFoundException {
     return state.users().stream()
             .filter(user -> user.id().equals(id))
             .toList();
