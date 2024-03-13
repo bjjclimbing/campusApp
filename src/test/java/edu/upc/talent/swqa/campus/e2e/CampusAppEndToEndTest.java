@@ -1,6 +1,7 @@
 package edu.upc.talent.swqa.campus.e2e;
 
 import edu.upc.talent.swqa.campus.domain.CampusApp;
+import edu.upc.talent.swqa.campus.domain.UserNotFoundException;
 import edu.upc.talent.swqa.campus.domain.test.InMemoryEmailService;
 import edu.upc.talent.swqa.campus.infrastructure.PostgreSqlUsersRepository;
 import edu.upc.talent.swqa.campus.infrastructure.test.PostgreSqlUsersRepositoryTestHelper;
@@ -86,4 +87,17 @@ public final class CampusAppEndToEndTest extends DatabaseBackedTest {
     assertEquals(expectedState, getFinalState());
   }
 
+  @Test
+  public void testsendMailToTeacher() throws UserNotFoundException {
+    final var app = getApp(defaultInitialState);
+    final var subject = "Hey! Teacher!";
+    final var body = "Let them students alone!!";
+    final var id="3";
+    app.sendMailToTeacher(id,  subject, body);
+    final var expectedFinalState = new CampusAppState(
+            defaultInitialState.usersRepositoryState(),
+            Set.of(new SentEmail("mariah.hairam@example.com", subject, body))
+    );
+    assertEquals(expectedFinalState, getFinalState());
+  }
 }
