@@ -77,8 +77,8 @@ public class PostgreSqlUsersRepository implements UsersRepository {
 
     List<User> User = db.select(
             """
-                    select u.id, u.name, u.surname, u.email, u.role, u.created_at
-                    from users u 
+                    select u.id, u.name, u.surname, u.email, u.role, u.group_id, u.created_at
+                    from users u
                     where  u.id = ?""",
             (rs) -> new User(
                     id,
@@ -88,7 +88,6 @@ public class PostgreSqlUsersRepository implements UsersRepository {
                     rs.getString(5),
                     rs.getString(6),
                     rs.getInstant(7)
-
             ),
             p(id)
     );
@@ -100,5 +99,11 @@ public class PostgreSqlUsersRepository implements UsersRepository {
 
   }
 
-
+  @Override
+  public void getIsaTeacher(User user) throws UserNotFoundException {
+    if (!user.role().equals("teacher")) {
+      final String msg = "User " + user.id() + " is not a teacher";
+      throw new UserNotFoundException(msg);
+    }
+  }
 }

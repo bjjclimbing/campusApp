@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public interface UsersRepositoryTest {
@@ -80,11 +81,26 @@ public interface UsersRepositoryTest {
               try {
                 repository.getUserById(id);
               } catch (UserNotFoundException e) {
-                throw new UserNotFoundException("User "+id+" does not exist");
+                throw new UserNotFoundException(e.getMessage());
               }
             }
     );
     assertEquals("User " + id + " does not exist", exception.getMessage());
+  }
+
+  @Test
+  default void testUserisTeacher() {
+    final var repository = getRepository(defaultInitialState);
+    final var id = "1";
+
+    // Se espera que se lance una excepción UserNotFoundException al intentar obtener el usuario por ID
+    assertThrows(UserNotFoundException.class, () -> {
+      List<User> users = repository.getUserById(id);
+      for (User user : users) {
+        // Se espera que se lance una excepción UserNotFoundException al intentar determinar si el usuario es profesor
+        repository.getIsaTeacher(user);
+      }
+    });
   }
 }
 

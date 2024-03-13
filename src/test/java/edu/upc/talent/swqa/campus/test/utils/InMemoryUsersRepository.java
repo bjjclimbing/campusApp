@@ -56,8 +56,21 @@ public record InMemoryUsersRepository(UsersRepositoryState state) implements Use
 
   @Override
   public List<User> getUserById(final String id) throws UserNotFoundException {
-    return state.users().stream()
+    List<User> User = state.users().stream()
             .filter(user -> user.id().equals(id))
             .toList();
+    if (User.isEmpty() ) {
+      final String msg = "User "+id+" does not exist";
+      throw new UserNotFoundException(msg);
+    }
+    return User;
+  }
+
+  @Override
+  public void getIsaTeacher(User user) throws UserNotFoundException {
+    if (!user.role().equals("teacher")) {
+      final String msg = "User " + user.id() + " is not a teacher";
+      throw new UserNotFoundException(msg);
+    }
   }
 }
