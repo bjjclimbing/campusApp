@@ -70,15 +70,22 @@ public final class CampusApp {
   }
 
   public void sendMailToTeacher(final String id, final String subject,final String body) throws UserNotFoundException {
-    final List<User> users;
+
     try {
-      users = usersRepository.getUserById(id);
+      final var Users= usersRepository.getUserById(id);
+      for (User user : Users) {
+        try {
+          usersRepository.getIsaTeacher(user);
+          emailService.sendEmail(user,subject,body);
+        }
+        catch (UserNotFoundException e){
+          throw new RuntimeException(e);
+        }
+      }
+
     } catch (UserNotFoundException e) {
       throw new RuntimeException(e);
     }
-
-    users.stream().filter(u -> u.id().equals(id))
-            .forEach(u -> emailService.sendEmail(u, subject, body));
   }
 
 }
