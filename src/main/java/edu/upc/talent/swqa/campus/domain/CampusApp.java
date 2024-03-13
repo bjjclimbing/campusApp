@@ -69,7 +69,7 @@ public final class CampusApp {
           .forEach(u -> emailService.sendEmail(u, subject, body));
   }
 
-  public void sendMailToTeacher(final String id, final String subject,final String body) throws UserPrincipalNotFoundException {
+  public void sendMailToTeacher(final String id, final String subject,final String body) throws UserNotFoundException {
     final List<User> users;
     try {
       users = usersRepository.getUserById(id);

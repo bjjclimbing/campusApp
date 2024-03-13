@@ -1,6 +1,7 @@
 package edu.upc.talent.swqa.campus.domain.test;
 
 import edu.upc.talent.swqa.campus.domain.CampusApp;
+import edu.upc.talent.swqa.campus.domain.UserNotFoundException;
 import edu.upc.talent.swqa.campus.infrastructure.PostgreSqlUsersRepository;
 import edu.upc.talent.swqa.campus.test.utils.CampusAppState;
 import edu.upc.talent.swqa.campus.test.utils.Group;
@@ -77,7 +78,7 @@ public final class CampusAppTest {
   }
 
   @Test
-  public void testSendEmailById() throws UserPrincipalNotFoundException {
+  public void testSendEmailById() throws UserNotFoundException {
     final var app = getApp(defaultInitialState);
     final var subject = "Hey! Teacher!";
     final var body = "Let them students alone!!";
