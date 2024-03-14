@@ -71,7 +71,10 @@ public final class CampusApp {
 
   public void sendMailToTeacher(final String id, final String subject,final String body) throws UserNotFoundException {
 
+
+
     try {
+      isSubjectNotNull(subject);
       final var Users= usersRepository.getUserById(id);
       for (User user : Users) {
         try {
@@ -85,6 +88,13 @@ public final class CampusApp {
 
     } catch (UserNotFoundException e) {
       throw new RuntimeException(e);
+    }
+
+  }
+  public void isSubjectNotNull(final String subject) throws UserNotFoundException{
+    if(subject.trim().isEmpty()||subject==null){
+      final String msg = "The email subject is mandatory";
+      throw new UserNotFoundException(msg);
     }
   }
 

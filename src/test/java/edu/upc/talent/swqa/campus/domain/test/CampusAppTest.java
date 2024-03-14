@@ -11,6 +11,8 @@ import static edu.upc.talent.swqa.campus.test.utils.TestFixtures.defaultInitialS
 import edu.upc.talent.swqa.campus.test.utils.UsersRepositoryState;
 import static edu.upc.talent.swqa.test.utils.Asserts.assertEquals;
 import static edu.upc.talent.swqa.util.Utils.union;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.attribute.UserPrincipalNotFoundException;
@@ -89,5 +91,21 @@ public final class CampusAppTest {
             Set.of(new SentEmail("john.doe@example.com", subject, body))
     );
     assertEquals(expectedFinalState, getFinalState());
+  }
+
+
+  @Test
+  public void testisSubjectNotNull() throws UserNotFoundException{
+    final var app = getApp(defaultInitialState);
+    final var subject = "";
+    final var exception = assertThrows(edu.upc.talent.swqa.campus.domain.UserNotFoundException.class, () -> {
+              try {
+                app.isSubjectNotNull(subject);
+              } catch (UserNotFoundException e) {
+                throw new UserNotFoundException(e.getMessage());
+              }
+            }
+    );
+    assertEquals("The email subject is mandatory", exception.getMessage());
   }
 }
