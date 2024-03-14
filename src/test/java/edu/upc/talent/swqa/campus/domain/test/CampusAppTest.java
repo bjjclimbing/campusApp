@@ -108,4 +108,22 @@ public final class CampusAppTest {
     );
     assertEquals("The email subject is mandatory", exception.getMessage());
   }
+
+  @Test
+  public void testBodyNotNull() throws UserNotFoundException{
+    final var app = getApp(defaultInitialState);
+
+    final var body="";
+    final var confirm=false;
+    final var exception = assertThrows(edu.upc.talent.swqa.campus.domain.UserNotFoundException.class, () -> {
+              try {
+                app.isBodyNotNull(body,confirm);
+              } catch (UserNotFoundException e) {
+                throw new UserNotFoundException(e.getMessage());
+              }
+            }
+    );
+    assertEquals("No se ha indicado el cuerpo del mensaje. Infórmelo o marque la casilla 'Confirmar'", exception.getMessage());
+  }
+
 }

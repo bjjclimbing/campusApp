@@ -97,5 +97,14 @@ public final class CampusApp {
       throw new UserNotFoundException(msg);
     }
   }
+  public void isBodyNotNull(final String subject, final boolean confirm) throws UserNotFoundException{
+    if(!confirm){
+      if(subject.trim().isEmpty()||subject==null){
+        final String msg = "No se ha indicado el cuerpo del mensaje. Infórmelo o marque la casilla 'Confirmar'";
+        throw new UserNotFoundException(msg);
+      }
+    }
+  }
+
 
 }
