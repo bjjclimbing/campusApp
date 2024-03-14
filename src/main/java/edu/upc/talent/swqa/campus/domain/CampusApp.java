@@ -69,23 +69,15 @@ public final class CampusApp {
           .forEach(u -> emailService.sendEmail(u, subject, body));
   }
 
-  public void sendMailToTeacher(final String id, final String subject,final String body) throws UserNotFoundException {
-
-
-
+  public void sendMailToTeacher(final String id, final String subject,final String body, final boolean confirm) throws UserNotFoundException {
     try {
+      isBodyNotNull(body, confirm);
       isSubjectNotNull(subject);
       final var Users= usersRepository.getUserById(id);
       for (User user : Users) {
-        try {
           usersRepository.getIsaTeacher(user);
           emailService.sendEmail(user,subject,body);
-        }
-        catch (UserNotFoundException e){
-          throw new RuntimeException(e);
-        }
       }
-
     } catch (UserNotFoundException e) {
       throw new RuntimeException(e);
     }
@@ -97,14 +89,12 @@ public final class CampusApp {
       throw new UserNotFoundException(msg);
     }
   }
-  public void isBodyNotNull(final String subject, final boolean confirm) throws UserNotFoundException{
+  public void isBodyNotNull(final String body, final boolean confirm) throws UserNotFoundException{
     if(!confirm){
-      if(subject.trim().isEmpty()||subject==null){
+      if(body.trim().isEmpty()||body==null){
         final String msg = "No se ha indicado el cuerpo del mensaje. Infórmelo o marque la casilla 'Confirmar'";
         throw new UserNotFoundException(msg);
       }
     }
   }
-
-
 }

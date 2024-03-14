@@ -93,7 +93,8 @@ public final class CampusAppEndToEndTest extends DatabaseBackedTest {
     final var subject = "Hey! Teacher!";
     final var body = "Let them students alone!!";
     final var id="3";
-    app.sendMailToTeacher(id,  subject, body);
+    final var confirm=true;
+    app.sendMailToTeacher(id,  subject, body,confirm);
     final var expectedFinalState = new CampusAppState(
             defaultInitialState.usersRepositoryState(),
             Set.of(new SentEmail("mariah.hairam@example.com", subject, body))
