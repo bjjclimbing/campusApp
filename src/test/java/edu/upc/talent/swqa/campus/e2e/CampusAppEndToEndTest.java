@@ -87,6 +87,7 @@ public final class CampusAppEndToEndTest extends DatabaseBackedTest {
     assertEquals(expectedState, getFinalState());
   }
 
+  //Test WorkShop 4
   @Test
   public void testsendMailToTeacher() throws UserNotFoundException {
     final var app = getApp(defaultInitialState);

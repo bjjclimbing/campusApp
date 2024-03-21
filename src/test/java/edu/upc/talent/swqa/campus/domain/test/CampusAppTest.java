@@ -79,6 +79,7 @@ public final class CampusAppTest {
     assertEquals(expectedFinalState, getFinalState());
   }
 
+  //Test WorkShop 1
   @Test
   public void testSendEmailById() throws UserNotFoundException {
     final var app = getApp(defaultInitialState);
@@ -95,6 +96,7 @@ public final class CampusAppTest {
   }
 
 
+  //Test Mejora 1
   @Test
   public void testisSubjectNotNull() throws UserNotFoundException{
     final var app = getApp(defaultInitialState);
@@ -110,6 +112,7 @@ public final class CampusAppTest {
     assertEquals("The email subject is mandatory", exception.getMessage());
   }
 
+  //Test Mejora 2
   @Test
   public void testBodyNotNull() throws UserNotFoundException{
     final var app = getApp(defaultInitialState);

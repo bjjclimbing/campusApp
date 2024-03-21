@@ -73,6 +73,7 @@ public interface UsersRepositoryTest {
     assertExpectedFinalState(defaultInitialState);
   }
 
+  //Test WorkShop 2
   @Test
   default void testGetUserById() {
     final var repository = getRepository(defaultInitialState);
@@ -88,6 +89,7 @@ public interface UsersRepositoryTest {
     assertEquals("User " + id + " does not exist", exception.getMessage());
   }
 
+  //Test WorkShop 3
   @Test
   default void testUserisTeacher() {
     final var repository = getRepository(defaultInitialState);
