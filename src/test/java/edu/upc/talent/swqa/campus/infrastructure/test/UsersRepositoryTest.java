@@ -94,12 +94,13 @@ public interface UsersRepositoryTest {
   default void testUserisTeacher() {
     final var repository = getRepository(defaultInitialState);
     final var id = "1";
-    assertThrows(UserNotFoundException.class, () -> {
+    final var exception =  assertThrows(UserNotFoundException.class, () -> {
       List<User> users = repository.getUserById(id);
       for (User user : users) {
         repository.getIsaTeacher(user);
       }
     });
+    assertEquals("User " + id + " is not a teacher", exception.getMessage());
   }
 }
 
