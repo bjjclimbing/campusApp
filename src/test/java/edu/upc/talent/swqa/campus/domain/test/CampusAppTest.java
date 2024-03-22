@@ -112,7 +112,7 @@ public final class CampusAppTest {
     assertEquals("The email subject is mandatory", exception.getMessage());
   }
 
-  //Test Mejora 2
+  //Test Mejora 2 - confirm false
   @Test
   public void testBodyNotNull() throws UserNotFoundException{
     final var app = getApp(defaultInitialState);
@@ -129,5 +129,7 @@ public final class CampusAppTest {
     );
     assertEquals("No se ha indicado el cuerpo del mensaje. Infórmelo o marque la casilla 'Confirmar'", exception.getMessage());
   }
+
+
 
 }

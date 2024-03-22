@@ -102,4 +102,19 @@ public final class CampusAppEndToEndTest extends DatabaseBackedTest {
     );
     assertEquals(expectedFinalState, getFinalState());
   }
+  //Test Mejora 2 - confirm true
+  @Test
+  public void testBodyNullConfirm() throws UserNotFoundException {
+    final var app = getApp(defaultInitialState);
+    final var subject = "Hey! Teacher!";
+    final var body = "";
+    final var id="3";
+    final var confirm=true;
+    app.sendMailToTeacher(id,  subject, body,confirm);
+    final var expectedFinalState = new CampusAppState(
+            defaultInitialState.usersRepositoryState(),
+            Set.of(new SentEmail("mariah.hairam@example.com", subject, body))
+    );
+    assertEquals(expectedFinalState, getFinalState());
+  }
 }
